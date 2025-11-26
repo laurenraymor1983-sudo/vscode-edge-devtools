@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
@@ -110,8 +111,8 @@ export const SETTINGS_DEFAULT_ENTRY_POINT = 'index.html';
 const WIN_APP_DATA = process.env.LOCALAPPDATA || '/';
 const msEdgeBrowserMapping: Map<BrowserFlavor, IBrowserPath> = new Map<BrowserFlavor, IBrowserPath>();
 
-// Current Revision: 137.0.7151.69
-export const CDN_FALLBACK_REVISION = '@f3affdcf267b3645b45a2fc38dcf44cb11cc4091';
+// Current Revision: 141.0.3537.92
+export const CDN_FALLBACK_REVISION = '@180f8c4bc30332bf85da01c6c4d1d679225b5449';
 
 /** Build-specified flags. */
 declare const DEBUG: boolean;
@@ -311,7 +312,7 @@ export async function getJsDebugCDPProxyWebsocketUrl(debugSessionId: string): Pr
         const addr: IRequestCDPProxyResult|undefined = await vscode.commands.executeCommand(
         'extension.js-debug.requestCDPProxy',
         debugSessionId,
-        forwardToUi
+        forwardToUi,
         );
         if (addr) {
             return `ws://${addr.host}:${addr.port}${addr.path || ''}`;
@@ -474,7 +475,7 @@ export function getRuntimeConfig(config: Partial<IUserConfig> = {}): IRuntimeCon
     // Resolve the paths with the webRoot set by the user
     const resolvedOverrides: IStringDictionary<string> = {};
     for (const pattern in sourceMapPathOverrides) {
-        if (sourceMapPathOverrides.hasOwnProperty(pattern)) {
+        if (Object.hasOwn(sourceMapPathOverrides, pattern)) {
             const replacePattern = replaceWebRootInSourceMapPathOverridesEntry(webRoot, pattern);
             const replacePatternValue = replaceWebRootInSourceMapPathOverridesEntry(
                 webRoot, sourceMapPathOverrides[pattern]);
@@ -491,7 +492,7 @@ export function getRuntimeConfig(config: Partial<IUserConfig> = {}): IRuntimeCon
     // replace workspaceFolder with local paths
     const resolvedMappingOverrides: IStringDictionary<string> = {};
     for (const customPathMapped in pathMapping) {
-        if (pathMapping.hasOwnProperty(customPathMapped)) {
+        if (Object.hasOwn(pathMapping, customPathMapped)) {
             resolvedMappingOverrides[customPathMapped] =
                 replaceWorkSpaceFolderPlaceholder(pathMapping[customPathMapped]);
         }
