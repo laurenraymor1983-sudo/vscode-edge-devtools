@@ -44,7 +44,7 @@ Example:
 "meteor://💻app/main.ts"` -> `"/Users/me/project/main.ts"
 ```
 
-#### Ionic and gulp sourcemaps note
+## Ionic and gulp sourcemaps note
 
 Ionic and gulp-sourcemaps output a sourceRoot of `"/source/"` by default. If you can't fix this via your build config, try this setting:
 
